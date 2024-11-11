@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS contacts(
     user_id BIGINT NOT NULL REFERENCES users(id),
     full_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    phone VARCHAR(100) NOT NULL
+    phone VARCHAR(100) NOT NULL,
+    CONSTRAINT uc_contact_unique UNIQUE(email, phone)
 );
 CREATE INDEX IF NOT EXISTS idx_user_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_fk_contact_user ON contacts(user_id);
