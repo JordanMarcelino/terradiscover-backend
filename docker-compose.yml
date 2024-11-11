@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8000:8000"
+        depends_on:
+            postgresql:
+                condition: service_healthy
+
+    postgresql:
+        image: postgres:16-alpine3.20
+        ports:
+            - "8001:5432"
+        volumes:
+            - "./db/migrations/schema.sql:/docker-entrypoint-initdb.d/schema.sql"
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=api_db
+            - PGDATA=/var/lib/postgresql/data/pgdata
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
