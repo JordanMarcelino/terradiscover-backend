@@ -38,7 +38,24 @@ func NewAuthUseCase(
 }
 
 func (u *authUseCaseImpl) Login(ctx context.Context, request *dto.UserLoginRequest) (string, error) {
-	panic("")
+	user, err := u.userRepository.FindByEmail(ctx, request.Email)
+	if err != nil {
+		return "", apperror.NewServerError(err)
+	}
+	if user == nil {
+		return "", apperror.NewInvalidCredentialError()
+	}
+
+	if ok := u.bcryptEncryptor.Check(request.Password, user.Password); !ok {
+		return "", apperror.NewInvalidCredentialError()
+	}
+
+	token, err := u.jwtUtil.Sign(user.ID)
+	if err != nil {
+		return "", apperror.NewServerError(err)
+	}
+
+	return token, err
 }
 
 func (u *authUseCaseImpl) Register(ctx context.Context, request *dto.UserRegisterRequest) (*dto.UserResponse, error) {
@@ -51,7 +68,7 @@ func (u *authUseCaseImpl) Register(ctx context.Context, request *dto.UserRegiste
 			return apperror.NewServerError(err)
 		}
 		if user != nil {
-
+			return apperror.NewUserAlreadyExistsError()
 		}
 
 		hashPwd, err := u.bcryptEncryptor.Hash(request.Password)

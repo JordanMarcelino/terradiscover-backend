@@ -12,6 +12,10 @@ const (
 )
 
 const (
+	COOKIE_ACCESS_TOKEN = "access_token"
+)
+
+const (
 	WIB = 7 * time.Hour
 )
 
