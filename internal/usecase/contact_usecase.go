@@ -7,6 +7,7 @@ import (
 	"github.com/jordanmarcelino/terradiscover-backend/internal/dto"
 	"github.com/jordanmarcelino/terradiscover-backend/internal/entity"
 	"github.com/jordanmarcelino/terradiscover-backend/internal/repository"
+	"github.com/jordanmarcelino/terradiscover-backend/internal/utils/pageutils"
 )
 
 type ContactUseCase interface {
@@ -25,7 +26,14 @@ func NewContactUseCase(contactRepository repository.ContactRepository) *contactU
 }
 
 func (u *contactUseCaseImpl) Search(ctx context.Context, request *dto.SearchContactRequest) ([]*dto.ContactResponse, *dto.PageMetaData, error) {
-	panic("")
+	contacts, err := u.contactRepository.Search(ctx, request)
+	if err != nil {
+		return nil, nil, apperror.NewServerError(err)
+	}
+
+	items, paging := pageutils.CreateMetaData(contacts, request.Page, request.Size)
+
+	return dto.ConvertToContactResponses(items), paging, nil
 }
 
 func (u *contactUseCaseImpl) Save(ctx context.Context, request *dto.CreateContactRequest) (*dto.ContactResponse, error) {

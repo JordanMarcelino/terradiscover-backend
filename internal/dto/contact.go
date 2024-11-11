@@ -20,8 +20,8 @@ type SearchContactRequest struct {
 	Email  string `form:"email"`
 	Name   string `form:"name"`
 	Phone  string `form:"phone"`
-	Page   int64  `form:"page"`
-	Size   int64  `form:"size"`
+	Page   int64  `form:"page" binding:"gte=1"`
+	Size   int64  `form:"size" binding:"gte=1,max=20"`
 	UserID int64
 }
 
