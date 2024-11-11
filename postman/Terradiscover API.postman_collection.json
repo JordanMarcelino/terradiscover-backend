@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "3a77eb62-ec43-4242-ab88-e6fffb84af28",
+		"name": "Terradiscover API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19847270"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"Secret123@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"Secret123@\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXJyYWRpc2NvdmVyLWJhY2tlbmQiLCJleHAiOjE3MzE0MDkzODcsImlhdCI6MTczMTMyMjk4NywianRpIjoiNjQ4NmU4OTItNWU0My00ODgxLThjZDItOWI5MzU2YjdiYWNmIiwidXNlcl9pZCI6MX0.cEpzmvddGfSlHXm_unFl2_WPYU8IYRU0liIypmeSH4U; Path=/; Max-Age=86400; HttpOnly; Secure"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 11:03:07 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "21"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"Secret123@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"Secret123@\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/auth/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 11:02:58 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "62"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\",\n    \"data\": {\n        \"id\": 1,\n        \"email\": \"test@gmail.com\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Contacts",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/contacts?page=1&size=10&name=&email&phone",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"contacts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "name",
+									"value": ""
+								},
+								{
+									"key": "email",
+									"value": null
+								},
+								{
+									"key": "phone",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/contacts?page=1&size=10&name=&email&phone",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"contacts"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "name",
+											"value": ""
+										},
+										{
+											"key": "email",
+											"value": null
+										},
+										{
+											"key": "phone",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 14:41:50 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "660"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"full_name\": \"John Doe\",\n            \"email\": \"john.doe@gmail.com\",\n            \"phone\": \"081215125123\"\n        }\n    ],\n    \"paging\": {\n        \"page\": 1,\n        \"size\": 10,\n        \"total_item\": 1,\n        \"total_page\": 1,\n        \"links\": {\n            \"self\": \"http://localhost:8000/contacts?email=&name=&page=1&phone=&size=10\",\n            \"first\": \"http://localhost:8000/contacts?email=&name=&page=1&phone=&size=10\",\n            \"prev\": \"http://localhost:8000/contacts?email=&name=&page=1&phone=&size=10\",\n            \"next\": \"http://localhost:8000/contacts?email=&name=&page=1&phone=&size=10\",\n            \"last\": \"http://localhost:8000/contacts?email=&name=&page=1&phone=&size=10\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"John Doe\",\r\n    \"email\": \"john.doe@gmail.com\",\r\n    \"phone\": \"081215125123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"full_name\": \"John Doe\",\r\n    \"email\": \"john.doe@gmail.com\",\r\n    \"phone\": \"081215125123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/contacts",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"contacts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 14:41:17 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "112"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\",\n    \"data\": {\n        \"id\": 1,\n        \"full_name\": \"John Doe\",\n        \"email\": \"john.doe@gmail.com\",\n        \"phone\": \"081215125123\"\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

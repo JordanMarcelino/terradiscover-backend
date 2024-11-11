@@ -1,0 +1,228 @@
+openapi: "3.0.2"
+info:
+    title: Terradiscover RESTful API
+    description: OPEN API Documentation for Terradiscover Backend
+    version: "1.0.0-SNAPSHOT"
+servers:
+    - url: http://localhost:8000
+      description: Development server (local)
+paths:
+    /auth/register:
+        post:
+            description: Register new user account
+            tags:
+                - users
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/UserLoginOrRegister"
+            responses:
+                "200":
+                    description: Success login
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    data:
+                                        $ref: "#/components/schemas/User"
+                "400":
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/BadRequest"
+    /auth/login:
+        post:
+            description: Login with created account
+            tags:
+                - users
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/UserLoginOrRegister"
+            responses:
+                "200":
+                    description: Success register new user account
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                "400":
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/BadRequest"
+    /contacts:
+        get:
+            parameters:
+                - name: name
+                  description: Contact full name
+                  in: query
+                  schema:
+                      type: string
+                - name: email
+                  description: Contact email
+                  in: query
+                  schema:
+                      type: string
+                - name: phone
+                  description: Contact phone number
+                  in: query
+                  schema:
+                      type: string
+                - name: page
+                  description: Page number
+                  in: query
+                  schema:
+                      type: number
+                - name: size
+                  description: Page size
+                  in: query
+                  schema:
+                      type: number
+            security:
+                - jwt: []
+            tags:
+                - contacts
+            description: Search user contacts
+            responses:
+                "200":
+                    description: Success search user contacts
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: "#/components/schemas/Contact"
+                "400":
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/BadRequest"
+        post:
+            security:
+                - jwt: []
+            tags:
+                - contacts
+            description: Create new contact
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateContact"
+            responses:
+                "201":
+                    description: Success create new contact
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    data:
+                                        $ref: "#/components/schemas/Contact"
+                "400":
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/BadRequest"
+
+components:
+    securitySchemes:
+        jwt:
+            type: apiKey
+            name: access_token
+            in: cookie
+    schemas:
+        UserLoginOrRegister:
+            type: object
+            properties:
+                email:
+                    type: string
+                password:
+                    type: string
+        User:
+            type: object
+            properties:
+                id:
+                    type: number
+                email:
+                    type: string
+        CreateContact:
+            type: object
+            properties:
+                full_name:
+                    type: string
+                email:
+                    type: string
+                phone:
+                    type: string
+        Contact:
+            type: object
+            properties:
+                id:
+                    type: number
+                full_name:
+                    type: string
+                email:
+                    type: string
+                phone:
+                    type: string
+        PageMetaData:
+            type: object
+            properties:
+                page:
+                    type: number
+                size:
+                    type: number
+                total_item:
+                    type: number
+                total_page:
+                    type: number
+                links:
+                    type: object
+                    properties:
+                        self:
+                            type: string
+                        first:
+                            type: string
+                        prev:
+                            type: string
+                        next:
+                            type: string
+                        last:
+                            type: string
+        BadRequest:
+            type: object
+            properties:
+                message:
+                    type: string
+                errors:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            field:
+                                type: string
+                            message:
+                                type: string
