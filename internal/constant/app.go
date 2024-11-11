@@ -16,6 +16,10 @@ const (
 )
 
 const (
+	JWT_USER_ID = "user_id"
+)
+
+const (
 	WIB = 7 * time.Hour
 )
 
