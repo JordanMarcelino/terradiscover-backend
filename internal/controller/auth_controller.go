@@ -32,7 +32,7 @@ func (c *AuthController) Register(ctx *gin.Context) {
 		return
 	}
 
-	ginutils.ResponseOK(ctx, res)
+	ginutils.ResponseCreated(ctx, res)
 }
 
 func (c *AuthController) Login(ctx *gin.Context) {
