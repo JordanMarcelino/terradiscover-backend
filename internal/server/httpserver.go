@@ -99,7 +99,6 @@ func (s *HttpServer) Shutdown() {
 func RegisterValidators() {
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 		v.RegisterTagNameFunc(validationutils.TagNameFormatter)
-
 		v.RegisterValidation("password", validationutils.PasswordValidator)
 		v.RegisterValidation("phone_number", validationutils.PhoneNumberValidator)
 	}
@@ -111,8 +110,8 @@ func RegisterMiddleware(router *gin.Engine, cfg *config.Config) {
 		middleware.ErrorHandler(),
 		middleware.RequestTimeout(cfg),
 		cors.New(cors.Config{
-			AllowMethods:     []string{"*"},
-			AllowHeaders:     []string{"*"},
+			AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+			AllowHeaders:     []string{"Authorization", "Content-Type"},
 			AllowOrigins:     []string{"http://localhost:3000", "http://localhost:5173"},
 			AllowCredentials: true,
 		}),

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/jordanmarcelino/terradiscover-backend/internal/apperror"
 	"github.com/jordanmarcelino/terradiscover-backend/internal/constant"
 	"github.com/jordanmarcelino/terradiscover-backend/internal/dto"
 	"github.com/jordanmarcelino/terradiscover-backend/internal/usecase"
@@ -47,7 +48,18 @@ func (c *AuthController) Login(ctx *gin.Context) {
 		return
 	}
 
-	ctx.SetCookie(constant.COOKIE_ACCESS_TOKEN, token, 86400, "/", "", true, true)
+	ctx.SetCookie(constant.COOKIE_ACCESS_TOKEN, token, 86400, "/", "", false, false)
 
+	ginutils.ResponseOKPlain(ctx)
+}
+
+func (c *AuthController) Logout(ctx *gin.Context) {
+	token, err := ctx.Cookie(constant.COOKIE_ACCESS_TOKEN)
+	if err != nil {
+		ctx.Error(apperror.NewUnauthorizedError())
+		return
+	}
+
+	ctx.SetCookie(constant.COOKIE_ACCESS_TOKEN, token, -1, "/", "", false, false)
 	ginutils.ResponseOKPlain(ctx)
 }
