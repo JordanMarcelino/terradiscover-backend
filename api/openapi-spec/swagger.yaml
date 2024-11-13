@@ -19,7 +19,7 @@ paths:
                         schema:
                             $ref: "#/components/schemas/UserLoginOrRegister"
             responses:
-                "200":
+                "201":
                     description: Success login
                     content:
                         application/json:
@@ -63,6 +63,30 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/BadRequest"
+    /auth/logout:
+        post:
+            description: Logout
+            tags:
+                - users
+            responses:
+                "200":
+                    description: Success logout
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
     /contacts:
         get:
             parameters:
